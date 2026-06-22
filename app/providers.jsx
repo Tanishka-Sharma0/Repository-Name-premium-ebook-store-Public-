@@ -1,31 +1,46 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { QueryClient } from "@tanstack/react-query";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
+import { useState } from "react";
 
 import PageTransition from "@/components/animations/PageTransition";
 
-const queryClient = new QueryClient();
+export default function Providers({ children }) {
+    // Create a new QueryClient instance for each session
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        staleTime: 60 * 1000, // 1 minute
+                        refetchOnWindowFocus: false,
+                    },
+                },
+            })
+    );
 
-export default function Providers({
-    children,
-}) {
     return (
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem={false}
+            enableSystem={true}
+            disableTransitionOnChange={false}
         >
-            <QueryClientProvider
-                client={queryClient}
-            >
+            <QueryClientProvider client={queryClient}>
                 <PageTransition>
                     {children}
                 </PageTransition>
-
-                <Toaster richColors />
+                <Toaster
+                    richColors
+                    position="bottom-right"
+                    closeButton
+                    toastOptions={{
+                        duration: 4000,
+                        className: "glass border border-white/10",
+                    }}
+                />
             </QueryClientProvider>
         </ThemeProvider>
     );

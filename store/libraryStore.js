@@ -1,8 +1,9 @@
 // store/libraryStore.js
 import { create } from 'zustand';
+import { books as booksData } from '@/lib/data';
 
 const useLibraryStore = create((set, get) => ({
-    books: [],           // Purchased books
+    books: booksData,    // Purchased books - initialized with data from lib/data.js
     continueReading: [], // Currently reading books with progress
 
     // Add a book to library (after purchase)
@@ -35,6 +36,21 @@ const useLibraryStore = create((set, get) => ({
     // Remove from Continue Reading
     removeFromContinueReading: (id) => set((state) => ({
         continueReading: state.continueReading.filter((book) => book.id !== id)
+    })),
+
+    // Remove book from library
+    removeBook: (id) => set((state) => ({
+        books: state.books.filter((book) => book.id !== id),
+        continueReading: state.continueReading.filter((book) => book.id !== id)
+    })),
+
+    // Toggle wishlist status
+    toggleWishlist: (id) => set((state) => ({
+        books: state.books.map((book) =>
+            book.id === id
+                ? { ...book, status: book.status === 'wishlist' ? 'reading' : 'wishlist' }
+                : book
+        )
     })),
 
     // Get currently reading books (sorted by last read)
