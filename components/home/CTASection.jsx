@@ -1,50 +1,55 @@
-import Link from "next/link";
-import ShimmerButton from "@/components/magic/ShimmerButton";
+// components/home/CTASection.jsx
+'use client';
+
+import { motion } from 'framer-motion';
+import FadeIn from '@/components/animations/FadeIn';
+import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function CTASection() {
+    const router = useRouter();
+
     return (
-        <section className="section-padding">
-            <div className="container-custom">
-                <div
-                    className="
-                        rounded-[40px]
-                        p-16
-                        text-center
-                        gradient-primary
-                    "
-                >
-                    <h2 className="text-5xl font-black">
-                        Start Learning Today
-                    </h2>
+        <section className="py-24 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-transparent" />
 
-                    <p className="mt-5 text-lg opacity-90">
-                        Join thousands of students
-                        preparing smarter.
-                    </p>
+            <div className="container-custom px-6 relative">
+                <FadeIn>
+                    <div className="glass rounded-[3rem] p-16 md:p-20 text-center max-w-4xl mx-auto border border-primary/20">
+                        <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                            Start Learning <span className="text-primary">Today</span>
+                        </h2>
 
-                    <div className="flex flex-wrap gap-4 mt-8 justify-center"> {/* Added flex container */}
-                        <ShimmerButton>
-                            Start Reading
-                        </ShimmerButton>
+                        <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                            Join thousands of students preparing smarter with premium ebooks and modern reading experience.
+                        </p>
 
-                        <Link
-                            href="/library"
-                            className="
-                                border
-                                rounded-full
-                                px-8
-                                py-4
-                                inline-flex
-                                items-center
-                                justify-center
-                                hover:bg-white/10
-                                transition-colors
-                            "
-                        >
-                            Explore Library
-                        </Link>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => router.push('/books')}
+                                className="premium-btn bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-4 rounded-2xl text-lg font-semibold flex items-center justify-center gap-3 group"
+                            >
+                                Start Reading Now
+                                <ArrowRight className="group-hover:translate-x-1 transition" />
+                            </motion.button>
+
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => router.push('/library')}
+                                className="premium-btn border border-white/30 hover:bg-white/5 px-10 py-4 rounded-2xl text-lg font-semibold"
+                            >
+                                Explore Library
+                            </motion.button>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground mt-8">
+                            30-day money back guarantee • Cancel anytime
+                        </p>
                     </div>
-                </div>
+                </FadeIn>
             </div>
         </section>
     );

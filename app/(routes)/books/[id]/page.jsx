@@ -1,41 +1,29 @@
-import { notFound } from "next/navigation";
-import { books } from "@/lib/data";
-import BookDetails from "@/components/books/BookDetails";
-import PreviewPages from "@/components/books/PreviewPages";
-import Reviews from "@/components/books/Reviews";
-import RelatedBooks from "@/components/books/RelatedBooks";
+// app/books/[id]/page.jsx
+import { notFound } from 'next/navigation';
+import { books } from '@/lib/data';
+import BookDetails from '@/components/books/BookDetails';
+import PreviewPages from '@/components/books/PreviewPages';
+import Reviews from '@/components/books/Reviews';
+import RelatedBooks from '@/components/books/RelatedBooks';
+import FadeIn from '@/components/animations/FadeIn';
 
-// Generate metadata for SEO
 export async function generateMetadata({ params }) {
-    const book = books.find(
-        (b) => b.id === Number(params.id)
-    );
+    const book = books.find((b) => b.id === Number(params.id));
 
     if (!book) {
-        return {
-            title: "Book Not Found",
-            description: "The requested book could not be found.",
-        };
+        return { title: "Book Not Found" };
     }
 
     return {
-        title: `${book.title} - PrepBooks`,
+        title: `${book.title} - E-Book Store`,
         description: book.description,
         openGraph: {
-            title: book.title,
-            description: book.description,
-            images: [book.image],
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: book.title,
-            description: book.description,
-            images: [book.image],
+            images: [{ url: book.image }],
         },
     };
 }
 
-export default async function BookPage({ params }) {
+export default function BookPage({ params }) {
     const id = Number(params.id);
     const book = books.find((item) => item.id === id);
 
@@ -43,19 +31,32 @@ export default async function BookPage({ params }) {
         notFound();
     }
 
+    // Sample preview pages (you can expand this)
+    const previewPages = [
+        book.image,
+        "/images/books/preview1.jpg",
+        "/images/books/preview2.jpg",
+    ];
+
     return (
-        <section className="section-padding">
+        <div className="pt-24 pb-20">
             <div className="container-custom px-6">
-                <BookDetails book={book} />
+                <FadeIn>
+                    <BookDetails book={book} />
+                </FadeIn>
 
-                {book.previewPages && book.previewPages.length > 0 && (
-                    <PreviewPages pages={book.previewPages} />
-                )}
+                <FadeIn delay={0.3}>
+                    <PreviewPages pages={previewPages} />
+                </FadeIn>
 
-                <Reviews bookId={book.id} />
+                <FadeIn delay={0.5}>
+                    <Reviews bookId={book.id} />
+                </FadeIn>
 
-                <RelatedBooks category={book.category} currentId={book.id} />
+                <FadeIn delay={0.7}>
+                    <RelatedBooks category={book.category} currentId={book.id} />
+                </FadeIn>
             </div>
-        </section>
+        </div>
     );
 }

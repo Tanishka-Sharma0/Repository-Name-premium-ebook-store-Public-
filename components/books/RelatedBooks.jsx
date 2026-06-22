@@ -1,32 +1,36 @@
-import { books } from "@/lib/data";
-import BookCard from "./BookCard";
+// components/books/RelatedBooks.jsx
+'use client';
 
-export default function RelatedBooks({
-    category,
-    currentId,
-}) {
-    const related = books
-        .filter(
-            (book) =>
-                book.category === category &&
-                book.id !== currentId
+import BookCard from './BookCard';
+import FadeIn from '@/components/animations/FadeIn';
+import StaggerContainer from '@/components/animations/StaggerContainer';
+import { books } from '@/lib/data';
+
+export default function RelatedBooks({ category, currentId }) {
+    // Filter related books (same category, exclude current book)
+    const relatedBooks = books
+        .filter((book) =>
+            book.category === category &&
+            book.id !== currentId
         )
-        .slice(0, 4);
+        .slice(0, 4); // Show max 4 related books
+
+    if (relatedBooks.length === 0) return null;
 
     return (
-        <section className="mt-24">
-            <h2 className="text-3xl font-bold">
-                Related Books
-            </h2>
+        <FadeIn>
+            <div className="mt-20">
+                <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-2xl font-semibold">More in {category}</h3>
+                    <p className="text-sm text-muted-foreground">Students also bought these</p>
+                </div>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {related.map((book) => (
-                    <BookCard
-                        key={book.id}
-                        book={book}
-                    />
-                ))}
+                <StaggerContainer staggerDelay={0.1} className="grid book-grid">
+                    {relatedBooks.map((book) => (
+                        <BookCard key={book.id} book={book} />
+                    ))}
+                </StaggerContainer>
             </div>
-        </section>
+        </FadeIn>
     );
 }

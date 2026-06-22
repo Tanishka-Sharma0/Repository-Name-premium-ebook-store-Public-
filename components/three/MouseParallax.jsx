@@ -1,23 +1,26 @@
-"use client";
+// components/three/MouseParallax.jsx
+'use client';
 
-import {
-    useFrame,
-    useThree,
-} from "@react-three/fiber";
+import { useEffect, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
-export default function MouseParallax() {
-    const { camera, mouse } =
-        useThree();
+export default function MouseParallax({ children }) {
+    const groupRef = useRef();
 
-    useFrame(() => {
-        camera.position.x =
-            mouse.x * 0.8;
+    useEffect(() => {
+        const handleMouseMove = (event) => {
+            if (!groupRef.current) return;
 
-        camera.position.y =
-            mouse.y * 0.4;
+            const x = (event.clientX / window.innerWidth - 0.5) * 2;
+            const y = (event.clientY / window.innerHeight - 0.5) * 2;
 
-        camera.lookAt(0, 0, 0);
-    });
+            groupRef.current.rotation.y = x * 0.15;
+            groupRef.current.rotation.x = -y * 0.12;
+        };
 
-    return null;
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
+    return <group ref={groupRef}>{children}</group>;
 }

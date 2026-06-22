@@ -1,26 +1,34 @@
-import { books } from "@/lib/data";
-import BookCard from "@/components/books/BookCard";
+// components/home/FeaturedBooks.jsx
+'use client';
+
+import BookCard from '@/components/books/BookCard';
+import StaggerContainer from '@/components/animations/StaggerContainer';
+import FadeIn from '@/components/animations/FadeIn';
+import { books } from '@/lib/data';
 
 export default function FeaturedBooks() {
-    const featuredBooks = books.filter(
-        (book) => book.featured
-    );
+    const featured = books.slice(0, 4);
 
     return (
-        <section className="section-padding">
-            <div className="container-custom">
-                <h2 className="text-4xl font-bold">
-                    Featured Books
-                </h2>
+        <section className="py-20">
+            <div className="container-custom px-6">
+                <FadeIn>
+                    <div className="flex items-end justify-between mb-10">
+                        <div>
+                            <h2 className="section-title">Featured Books</h2>
+                            <p className="text-muted-foreground mt-2">Handpicked for serious aspirants</p>
+                        </div>
+                        <a href="/books" className="text-primary hover:underline flex items-center gap-2 text-sm">
+                            View All →
+                        </a>
+                    </div>
+                </FadeIn>
 
-                <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {featuredBooks.map((book) => (
-                        <BookCard
-                            key={book.id}
-                            book={book}
-                        />
+                <StaggerContainer staggerDelay={0.1} className="grid book-grid">
+                    {featured.map((book) => (
+                        <BookCard key={book.id} book={book} />
                     ))}
-                </div>
+                </StaggerContainer>
             </div>
         </section>
     );

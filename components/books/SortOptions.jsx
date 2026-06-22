@@ -1,59 +1,34 @@
-"use client";
+// components/books/SortOptions.jsx
+'use client';
 
-import useFilterStore from "@/store/filterStore";
+import useFilterStore from '@/store/filterStore';
+import { ArrowUpDown } from 'lucide-react';
 
 export default function SortOptions() {
-    const {
-        sort,
-        setSort,
+    const { sort, setSort } = useFilterStore();
 
-        view,
-        setView,
-    } = useFilterStore();
+    const options = [
+        { value: 'latest', label: 'Latest' },
+        { value: 'price-low', label: 'Price: Low to High' },
+        { value: 'price-high', label: 'Price: High to Low' },
+        { value: 'rating', label: 'Highest Rated' },
+        { value: 'popular', label: 'Most Popular' },
+    ];
 
     return (
-        <div className="flex gap-4">
+        <div className="flex items-center gap-3">
+            <ArrowUpDown size={18} className="text-muted-foreground" />
             <select
                 value={sort}
-                onChange={(e) =>
-                    setSort(e.target.value)
-                }
-                className="border rounded-xl px-4 py-3"
+                onChange={(e) => setSort(e.target.value)}
+                className="bg-secondary border border-border rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-primary cursor-pointer"
             >
-                <option value="latest">
-                    Latest
-                </option>
-
-                <option value="price-low">
-                    Price Low
-                </option>
-
-                <option value="price-high">
-                    Price High
-                </option>
-
-                <option value="rating">
-                    Top Rated
-                </option>
+                {options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
             </select>
-
-            <button
-                onClick={() =>
-                    setView("grid")
-                }
-                className="border px-4 rounded-xl"
-            >
-                Grid
-            </button>
-
-            <button
-                onClick={() =>
-                    setView("list")
-                }
-                className="border px-4 rounded-xl"
-            >
-                List
-            </button>
         </div>
     );
 }

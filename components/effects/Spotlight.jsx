@@ -1,32 +1,40 @@
-"use client";
+// components/effects/Spotlight.jsx
+'use client';
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from 'react';
 
 export default function Spotlight() {
+    const spotlightRef = useRef(null);
+
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (!spotlightRef.current) return;
+
+            const { clientX, clientY } = e;
+            const rect = spotlightRef.current.getBoundingClientRect();
+
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            spotlightRef.current.style.background = `
+        radial-gradient(
+          circle 350px at ${x}px ${y}px,
+          rgba(34, 211, 238, 0.15),
+          transparent 70%
+        )
+      `;
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+        return () => document.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
     return (
-        <motion.div
-            animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.8, 0.5],
-            }}
-            transition={{
-                duration: 8,
-                repeat: Infinity,
-            }}
-            className="
-        absolute
-        left-1/2
-        top-0
-        h-[600px]
-        w-[600px]
-        -translate-x-1/2
-        rounded-full
-        blur-[120px]
-        pointer-events-none
-      "
+        <div
+            ref={spotlightRef}
+            className="fixed inset-0 pointer-events-none z-10 transition-all duration-200"
             style={{
-                background:
-                    "radial-gradient(circle, rgba(85,107,47,.35), transparent 70%)",
+                background: 'radial-gradient(circle 350px at 50% 50%, rgba(34, 211, 238, 0.08), transparent 70%)',
             }}
         />
     );

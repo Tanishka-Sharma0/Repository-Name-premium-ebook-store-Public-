@@ -1,52 +1,47 @@
-import Hero from "@/components/home/Hero";
-import FeaturedBooks from "@/components/home/FeaturedBooks";
-import Categories from "@/components/home/Categories";
-import Bestsellers from "@/components/home/Bestsellers";
-import CTASection from "@/components/home/CTASection";
-import FadeIn from "@/components/animations/FadeIn";
-import Stats from "@/components/home/Stats";
-import Testimonials from "@/components/home/Testimonials";
-import TopAuthors from "@/components/home/TopAuthors";
-import WhyChooseUs from "@/components/home/WhyChooseUs";
+// app/page.jsx
+'use client';
 
-export default function HomePage() {
+import Hero from '@/components/home/Hero';
+import Stats from '@/components/home/Stats';
+import FeaturedBooks from '@/components/home/FeaturedBooks';
+import Categories from '@/components/home/Categories';
+import BestSellers from '@/components/home/Bestsellers';
+import WhyChooseUs from '@/components/home/WhyChooseUs';
+import Testimonials from '@/components/home/Testimonials';
+import CTASection from '@/components/home/CTASection';
+import PageTransition from '@/components/animations/PageTransition';
+
+export default function Home() {
     return (
-        <>
-            <FadeIn>
+        <PageTransition>
+            <main className="bg-background overflow-hidden">
+                {/* HERO SECTION - Most Important */}
                 <Hero />
-            </FadeIn>
 
-            <FadeIn delay={0.1}>
+                {/* STATS BAR */}
                 <Stats />
-            </FadeIn>
 
-            <FadeIn delay={0.1}>
+                {/* FEATURED BOOKS */}
                 <FeaturedBooks />
-            </FadeIn>
 
-            <FadeIn delay={0.2}>
-                <Testimonials />
-            </FadeIn>
-
-            <FadeIn delay={0.2}>
+                {/* CATEGORIES */}
                 <Categories />
-            </FadeIn>
 
-            <FadeIn delay={0.3}>
-                <Bestsellers />
-            </FadeIn>
+                {/* BEST SELLERS */}
+                <BestSellers />
 
-            <FadeIn delay={0.3}>
+                {/* WHY CHOOSE US */}
                 <WhyChooseUs />
-            </FadeIn>
 
-            <FadeIn delay={0.3}>
-                <TopAuthors />
-            </FadeIn>
+                {/* STUDENT TESTIMONIALS */}
+                <Testimonials />
 
-            <FadeIn delay={0.4}>
+                {/* FINAL CTA */}
                 <CTASection />
-            </FadeIn>
-        </>
+
+                {/* Footer Gap */}
+                <div className="h-20" />
+            </main>
+        </PageTransition>
     );
 }
