@@ -2,7 +2,7 @@
 
 Welcome to the E-Book Store, a premium ebook learning platform. This project is built using Next.js and provides a user-friendly interface for browsing, purchasing, and reading ebooks.
 
-Deployment link : https://repository-name-premium-ebook-store.vercel.app/(go and see)
+Deployment link : https://repository-name-premium-ebook-store.vercel.app/   (go and see)
 
 ## Features
 
