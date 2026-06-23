@@ -2,6 +2,11 @@
 
 Welcome to the E-Book Store, a premium ebook learning platform. This project is built using Next.js and provides a user-friendly interface for browsing, purchasing, and reading ebooks.
 
+<<<<<<< HEAD
+=======
+Deployment link : https://repository-name-premium-ebook-store.vercel.app/   (go and see)
+
+>>>>>>> 56728bf555af85e2d15e3e547eb44976180957fb
 ## Features
 
 - Browse a wide selection of ebooks in various categories
@@ -54,4 +59,8 @@ This project was built by [Your Name] and is based on the Next.js framework.
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/) - The library used for 3D book cover animations.
 - [React Parallax Tilt](https://www.npmjs.com/package/react-parallax-tilt) - The library used for parallax effects on book covers.
 - [Tailwind CSS](https://tailwindcss.com/) - The utility-first CSS framework used for styling.
+<<<<<<< HEAD
 - [Vercel](https://vercel.com/) - The platform used for hosting and deployment.
+=======
+- [Vercel](https://vercel.com/) - The platform used for hosting and deployment.
+>>>>>>> 56728bf555af85e2d15e3e547eb44976180957fb
