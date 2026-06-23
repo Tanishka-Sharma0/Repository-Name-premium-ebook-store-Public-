@@ -73,7 +73,7 @@ export default function ContinueReading() {
                 </Link>
             </motion.div>
 
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {books.map((book, index) => (
                     <motion.div
                         key={book.id}
@@ -82,7 +82,7 @@ export default function ContinueReading() {
                         transition={{ delay: index * 0.05 }}
                         whileHover={{ y: -4 }}
                     >
-                        <GlassCard className="rounded-3xl p-5 border border-white/5 hover:border-[var(--primary)]/20 transition-all duration-300 group">
+                        <GlassCard className="rounded-2xl p-4 border border-white/5 hover:border-[var(--primary)]/20 transition-all duration-300 group">
                             <div className="flex items-start gap-4">
                                 {/* Book thumbnail */}
                                 <div className="relative w-16 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-white/5">
